@@ -22,12 +22,31 @@ export function getRandomAlphanumeric(len: number) {
  * @param data json object
  * @returns whether or not the operation was successful
  */
-export async function saveData(fileName: string, data: { "message": string }): Promise<boolean> {
+export async function saveDataToLocalFile(
+  fileName: string,
+  data: { message: string }
+): Promise<boolean> {
   try {
     await fs.writeFile(fileName, JSON.stringify(data, null, 2));
     return true;
-  } catch (error) {
-    logger("Error saving data: " + error, "error");
+  } catch (err) {
+    logger("Error saving data: " + err, "error");
     return false;
+  }
+}
+
+/**
+ * Fetches a JSON object from a local file.
+ * @param property the property to search for in the JSON object
+ * @returns the matching object
+ */
+export async function loadDataFromLocalFile(fileName: string): Promise<object> {
+  try {
+    const data = await fs.readFile(fileName, "utf-8");
+    const parsedData = JSON.parse(data);
+    return parsedData;
+  } catch (err) {
+    logger("Error saving data: " + err, "error");
+    return {};
   }
 }
