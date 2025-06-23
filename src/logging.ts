@@ -19,3 +19,5 @@ const logger = (
       console.log(`[UNKNOWN] [${timestamp}] ${message}`);
   }
 };
+
+export default logger;
