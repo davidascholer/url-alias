@@ -1,0 +1,12 @@
+{
+  "name": "url-alias",
+  "version": "1.0.0",
+  "description": "A project for MightyByte",
+  "license": "ISC",
+  "author": "David Scholer",
+  "type": "node",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest"
+  }
+}
