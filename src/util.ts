@@ -24,7 +24,7 @@ export function getRandomAlphanumeric(len: number) {
  */
 export async function saveDataToLocalFile(
   fileName: string,
-  data: { message: string }
+  data: Record<string, string>
 ): Promise<boolean> {
   try {
     await fs.writeFile(fileName, JSON.stringify(data, null, 2));
@@ -40,7 +40,7 @@ export async function saveDataToLocalFile(
  * @param property the property to search for in the JSON object
  * @returns the matching object
  */
-export async function loadDataFromLocalFile(fileName: string): Promise<object> {
+export async function loadDataFromLocalFile(fileName: string): Promise<Record<string, string>> {
   try {
     const data = await fs.readFile(fileName, "utf-8");
     const parsedData = JSON.parse(data);
