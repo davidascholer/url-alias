@@ -1,4 +1,4 @@
-function getRandomAlphanumeric(len: number) {
+export function getRandomAlphanumeric(len: number) {
   const alphaNumericChars =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   const randomIndex = Math.floor(Math.random() * alphaNumericChars.length);
@@ -8,7 +8,3 @@ function getRandomAlphanumeric(len: number) {
   }
   return randomString.join("");
 }
-
-module.exports = {
-  getRandomAlphanumeric,
-};
