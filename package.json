@@ -4,9 +4,23 @@
   "description": "A project for MightyByte",
   "license": "ISC",
   "author": "David Scholer",
-  "type": "node",
-  "main": "server.js",
+  "type": "commonjs",
+  "main": "server.ts",
   "scripts": {
+    "start": "npx tsx src/server.ts",
     "test": "jest"
+  },
+  "devDependencies": {
+    "@tsconfig/node22": "^22.0.2",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.0.3",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "fs": "^0.0.1-security",
+    "ws": "^8.18.2"
   }
 }
