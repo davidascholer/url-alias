@@ -17,7 +17,6 @@ const DATA_FILE = "./data.json";
 
 app.post("/url", async (req, res) => {
   // Get the URL from the request body
-  console.log("req.body", req.body);
   const originalUrl = req.body.url;
   if (!originalUrl) {
     res.status(400).send({ error: "'url' param' is required" });
@@ -56,6 +55,4 @@ app.get("/:code", async (req, res) => {
   res.status(200).json({ url: originalUrl });
 });
 
-server.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+server.listen(PORT);

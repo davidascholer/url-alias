@@ -9,9 +9,9 @@ import logger from "./logging";
 export function getRandomAlphanumeric(len: number) {
   const alphaNumericChars =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  const randomIndex = Math.floor(Math.random() * alphaNumericChars.length);
   const randomString: string[] = [];
   for (let i = 0; i < len; i++) {
+    const randomIndex = Math.floor(Math.random() * alphaNumericChars.length);
     randomString.push(alphaNumericChars.charAt(randomIndex));
   }
   return randomString.join("");
@@ -40,7 +40,9 @@ export async function saveDataToLocalFile(
  * @param property the property to search for in the JSON object
  * @returns the matching object
  */
-export async function loadDataFromLocalFile(fileName: string): Promise<Record<string, string>> {
+export async function loadDataFromLocalFile(
+  fileName: string
+): Promise<Record<string, string>> {
   try {
     const data = await fs.readFile(fileName, "utf-8");
     const parsedData = JSON.parse(data);
