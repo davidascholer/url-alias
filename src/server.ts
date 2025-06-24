@@ -19,15 +19,44 @@ const URL = "http://localhost:" + PORT;
 
 const ipSessionMap = new Map();
 const wss = new WebSocket.Server({ server });
+
+// Ideally, this interval should be running only when there are active WebSocket connections.
+// Additionally, a rate limit should be set.
+// For this demonstration, we will keep it running.
+setInterval(() => {
+  if (ipSessionMap.size === 0) return;
+  // Iterate through the sessions
+  ipSessionMap.forEach((session) => {
+    // If the session has a code, it means we need to send a message
+    if (session.code) {
+      const shortenedUrlFull = URL + "/" + session.code;
+      const webSocketMsg = {
+        shortenedUrl: shortenedUrlFull,
+      };
+      // Send the message to the WebSocket client
+      if (session.ws.readyState === WebSocket.OPEN) {
+        session.ws.send(JSON.stringify(webSocketMsg));
+      }
+    }
+  });
+}, 1000);
+
 // WebSocket connection handling
 wss.on("connection", (ws, req) => {
   const ip = req.socket.remoteAddress;
 
   // Store the session using IP as the key
-  ipSessionMap.set(ip, ws);
+  ipSessionMap.set(ip, { ws: ws, code: null });
 
   ws.on("close", () => {
     ipSessionMap.delete(ip);
+  });
+
+  // Close the WebSocket connection when the client responds with a message
+  // This could be done better but for this exercise, we will just look for the string "ack".
+  ws.on("message", (message) => {
+    if (message.toString() !== "ack") return;
+    ws.close();
   });
 });
 
@@ -68,6 +97,8 @@ app.post("/url", async (req, res) => {
     const webSocketMsg = {
       shortenedUrl: shortenedUrlFull,
     };
+    // Set the code in the dictionary to indicate that an acknowledgment is needed
+    wsClient.code = shortenedUrl;
     wsClient.send(JSON.stringify(webSocketMsg));
   }
   res.status(201).send({ message: "data created successfully" });

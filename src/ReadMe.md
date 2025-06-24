@@ -16,3 +16,4 @@
     - curl -X POST -H "Content-Type: application/json" -d '{"url":"https://classcalc.com"}' http://localhost:3000/url
 - GET
     - curl http://localhost:3000/<code>
+- On the client, set up a WS connection before sending the post request. When the object with property "shortenedUrl" is sent to the client via wss, send back the message "ack" to close the connection. Otherwise, the server will continue to send the response.
