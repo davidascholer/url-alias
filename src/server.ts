@@ -1,4 +1,3 @@
-// Create a basic Express server with TypeScript that simply returns "Hello, World!" on the root path.
 import express from "express";
 import http from "http";
 import WebSocket from "ws";
