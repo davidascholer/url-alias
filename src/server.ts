@@ -75,9 +75,10 @@ app.post("/url", async (req, res) => {
   const tenDigitRandomString = getRandomAlphanumeric(10);
   const shortenedUrl = tenDigitRandomString;
 
-  // Here, we would check if the matching property and/or value exists.
-  // For simplicity, we will overwrite it if it does.
-  const dataCreated = await saveDataToLocalFile(DATA_FILE, {
+  // For production, we would check if the matching property and/or value exists.
+  // If saving to a db (or another async operation), we would implement checks for race conditions.
+  // For simplicity, we will simply overwrite it if it does.
+  const dataCreated = saveDataToLocalFile(DATA_FILE, {
     ...data,
     [shortenedUrl]: req.body.url,
   });

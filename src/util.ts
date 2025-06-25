@@ -22,12 +22,12 @@ export function getRandomAlphanumeric(len: number) {
  * @param data json object
  * @returns whether or not the operation was successful
  */
-export async function saveDataToLocalFile(
+export function saveDataToLocalFile(
   fileName: string,
   data: Record<string, string>
-): Promise<boolean> {
+): boolean {
   try {
-    await fs.writeFile(fileName, JSON.stringify(data, null, 2));
+    fs.writeFile(fileName, JSON.stringify(data, null, 2));
     return true;
   } catch (err) {
     logger("Error saving data: " + err, "error");
