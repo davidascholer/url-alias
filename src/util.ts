@@ -11,7 +11,8 @@ export function getRandomAlphanumeric(len: number) {
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   const randomString: string[] = [];
   for (let i = 0; i < len; i++) {
-    const randomIndex = Math.floor(Math.random() * alphaNumericChars.length);
+    const randomIndex =
+      crypto.getRandomValues(new Uint32Array(1))[0] % alphaNumericChars.length;
     randomString.push(alphaNumericChars.charAt(randomIndex));
   }
   return randomString.join("");
